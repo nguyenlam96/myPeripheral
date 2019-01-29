@@ -208,8 +208,11 @@ extension PeriperalManager: CBPeripheralManagerDelegate {
     func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeTo characteristic: CBCharacteristic) {
         LogUtils.LogTrace(type: .startFunc)
         print("central: \(central) didSubscribe to charactersitic: \(characteristic)")
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationName.didConnectedWithCentral.rawValue), object: nil, userInfo: nil)
         LogUtils.LogTrace(type: .endFunc)
     }
+    
+
     
     func peripheralManagerIsReady(toUpdateSubscribers peripheral: CBPeripheralManager) {
         // Summary: Invoked when a local peripheral device is again ready to send characteristic value updates.

@@ -760,6 +760,24 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sQe-WE-PXU">
+                                <rect key="frame" x="362" y="229" width="108" height="19"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Connected" id="p1f-mr-PcV">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r8P-nG-kSQ">
+                                <rect key="frame" x="54" y="148" width="113" height="17"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Receive Message:" id="mSF-9R-dDn">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kUD-38-i68">
                                 <rect key="frame" x="52" y="59" width="186" height="74"/>
                                 <constraints>
@@ -783,6 +801,7 @@
                     </view>
                     <connections>
                         <outlet property="advertiseButtonOutlet" destination="cVe-15-ebT" id="MCF-jF-11O"/>
+                        <outlet property="connectStateLabel" destination="sQe-WE-PXU" id="bxq-ex-KW2"/>
                         <outlet property="messageLabel" destination="kUD-38-i68" id="ble-pC-o72"/>
                         <outlet property="messageTextField" destination="RWY-lp-44a" id="v3c-bx-Xfh"/>
                         <outlet property="stopButtonOutlet" destination="1C1-ue-dJh" id="n3u-hl-Csp"/>

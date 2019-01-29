@@ -11,22 +11,24 @@ import CoreBluetooth
 
 class PheripheralVC: NSViewController {
     
-    
+    // MARK: - IBOutlet:
     @IBOutlet weak var messageLabel: NSTextField!
     @IBOutlet weak var advertiseButtonOutlet: NSButton!
     @IBOutlet weak var stopButtonOutlet: NSButton!
     @IBOutlet weak var messageTextField: NSTextField!
     @IBOutlet weak var successLabel: NSTextField!
+    @IBOutlet weak var connectStateLabel: NSTextField!
     
-    
+    // MARK: - ViewLifeCycle:
     override func viewWillAppear() {
-//        NotificationCenter.default.addObserver(self, selector: #selector(alertWhenBluetoothIsOff), name: NSNotification.Name(rawValue: NotificationName.bluetoothIsOff.rawValue), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didConnectedToCentral), name: NSNotification.Name(rawValue: NotificationName.didConnectedWithCentral.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didReceivedMessage(notification:)), name: NSNotification.Name(NotificationName.receiveMessage.rawValue), object: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.connectStateLabel.stringValue = ""
         self.stopButtonOutlet.isHidden = true
         self.messageLabel.stringValue = ""
         self.successLabel.stringValue = ""
@@ -39,10 +41,13 @@ class PheripheralVC: NSViewController {
             
         }
     }
-    
-//    @objc func alertWhenBluetoothIsOff() {
-//        print("Bluetooth is off!")
-//    }
+    // MARK: - Notifications handler :
+    @objc func didConnectedToCentral() {
+        LogUtils.LogTrace(type: .startFunc)
+        self.connectStateLabel.stringValue = "connected"
+        self.stopAdvertise()
+        LogUtils.LogTrace(type: .endFunc)
+    }
     
     @objc func didReceivedMessage(notification: Notification) {
         LogUtils.LogTrace(type: .startFunc)
@@ -53,7 +58,7 @@ class PheripheralVC: NSViewController {
         }
         LogUtils.LogTrace(type: .endFunc)
     }
-    
+    // MARK: - IBActions :
     @IBAction func startAdvertiseButtonpressed(_ sender: NSButton) {
         
         LogUtils.LogTrace(type: .startFunc)
@@ -85,6 +90,14 @@ class PheripheralVC: NSViewController {
     
     @IBAction func stopAdvertiseButtonPressed(_ sender: NSButton) {
         LogUtils.LogTrace(type: .startFunc)
+        
+        self.stopAdvertise()
+
+        LogUtils.LogTrace(type: .endFunc)
+
+    }
+    // MARK: - Private funcs :
+    private func stopAdvertise() {
         let isAdvertising = PeriperalManager.shared.peripheralManager?.isAdvertising
         
         if isAdvertising! {
@@ -94,9 +107,6 @@ class PheripheralVC: NSViewController {
         } else {
             LogUtils.LogDebug(type: .warning, message: "The PeripheralManager is not advertising")
         }
-
-        LogUtils.LogTrace(type: .endFunc)
-
     }
     
 

@@ -11,4 +11,5 @@ import Foundation
 enum NotificationName: String {
     case bluetoothIsOff
     case receiveMessage
+    case didConnectedWithCentral
 }
