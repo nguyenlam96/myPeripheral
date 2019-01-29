@@ -16,6 +16,7 @@ class PheripheralVC: NSViewController {
     @IBOutlet weak var advertiseButtonOutlet: NSButton!
     @IBOutlet weak var stopButtonOutlet: NSButton!
     @IBOutlet weak var messageTextField: NSTextField!
+    @IBOutlet weak var successLabel: NSTextField!
     
     
     override func viewWillAppear() {
@@ -28,6 +29,7 @@ class PheripheralVC: NSViewController {
         
         self.stopButtonOutlet.isHidden = true
         self.messageLabel.stringValue = ""
+        self.successLabel.stringValue = ""
         self.advertiseButtonOutlet.title = "Start Advertise"
         
     }
@@ -70,8 +72,13 @@ class PheripheralVC: NSViewController {
     @IBAction func sendButtonPressed(_ sender: NSButton) {
         LogUtils.LogTrace(type: .startFunc)
         let textData = messageTextField.stringValue.data(using: String.Encoding.utf8)
-        _ =
-        LogUtils.LogTrace(type: .startFunc)
+        let result = PeriperalManager.shared.writeCharacteristic(value: textData)
+        if result == true {
+            self.successLabel.stringValue = "send success"
+        } else {
+            self.successLabel.stringValue = "send fail"
+        }
+        LogUtils.LogTrace(type: .endFunc)
         
     }
     

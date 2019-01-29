@@ -15,10 +15,10 @@ class PeriperalManager: NSObject {
     // MARK: - Properties:
     static let shared = PeriperalManager()
     var peripheralManager : CBPeripheralManager!
-    var messageDataCharacteristic: CBMutableCharacteristic!
+    var receiveMessageDataCharacteristic: CBMutableCharacteristic!
     var sendMessageDataCharacteristic: CBMutableCharacteristic!
     var messagerService: CBMutableService!
-
+    var updatedData: Data?
     override init() {
         super.init()
         peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
@@ -28,12 +28,12 @@ class PeriperalManager: NSObject {
     // MARK: - Setup When ViewDidLoad:
     func setupService() {
         messagerService = CBMutableService(type: CBUUID(string: messengerServiceUUIDs.serviceUUID.rawValue), primary: true)
-        messageDataCharacteristic = CBMutableCharacteristic(type: CBUUID(string: messengerServiceUUIDs.contentCharacteristicUUID.rawValue), properties: [.write, .read], value: nil, permissions: [.writeable, .readable])
+        receiveMessageDataCharacteristic = CBMutableCharacteristic(type: CBUUID(string: messengerServiceUUIDs.receiveMessageDataCharacteristicUUID.rawValue), properties: [.write, .read], value: nil, permissions: [.writeable, .readable])
         sendMessageDataCharacteristic = CBMutableCharacteristic(type: CBUUID(string: messengerServiceUUIDs.sendMessageDataCharacteristicUUID.rawValue), properties: [.write, .read, .notify], value: nil, permissions: [.writeable, .readable])
         
         messagerService.characteristics = []
         messagerService.characteristics?.append((sendMessageDataCharacteristic)!)
-        messagerService.characteristics?.append((messageDataCharacteristic)!)
+        messagerService.characteristics?.append((receiveMessageDataCharacteristic)!)
         print("Added services: \(String(describing: messagerService))")
         peripheralManager!.add(messagerService!)
     }
@@ -74,9 +74,17 @@ class PeriperalManager: NSObject {
         return true
     }
     
-    func writeCharacteristic(value: Data) -> Bool {
-        
-        return true
+    func writeCharacteristic(value: Data?) -> Bool {
+        LogUtils.LogTrace(type: .startFunc)
+        guard let value = value else {
+            print("Datra value is nil")
+            LogUtils.LogTrace(type: .endFunc)
+            return false
+        }
+        self.sendMessageDataCharacteristic.value = value
+        self.updatedData = self.sendMessageDataCharacteristic.value
+        let result = self.peripheralManager.updateValue(updatedData!, for: self.sendMessageDataCharacteristic, onSubscribedCentrals: nil) // nil mean all subcribedCentral will be update
+        return result
     }
     
     // MARK: - Helper Functions:
@@ -139,13 +147,13 @@ extension PeriperalManager: CBPeripheralManagerDelegate {
     func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveRead request: CBATTRequest) {
         LogUtils.LogTrace(type: .startFunc)
         // ensure characteristic is matched
-        guard (request.characteristic.uuid == messageDataCharacteristic!.uuid) else {
+        guard (request.characteristic.uuid == receiveMessageDataCharacteristic!.uuid) else {
             LogUtils.LogDebug(type: .error, message: "Characteristic UUID doesn't match")
             LogUtils.LogTrace(type: .endFunc)
             return
         }
         // ensure index is validate
-        if request.offset > messageDataCharacteristic!.value!.count { // invalid
+        if request.offset > receiveMessageDataCharacteristic!.value!.count { // invalid
             LogUtils.LogDebug(type: .error, message: "invalid offset for messageContentCharacteristic")
             peripheralManager?.respond(to: request, withResult: CBATTError.Code.invalidOffset)
             LogUtils.LogTrace(type: .endFunc)
@@ -153,8 +161,8 @@ extension PeriperalManager: CBPeripheralManagerDelegate {
         }
         
         // if everything's ok, assign value of characteristic for value of request
-        let range = Range( NSRange(location: request.offset, length: messageDataCharacteristic!.value!.count - request.offset) )
-        request.value = messageDataCharacteristic!.value!.subdata(in: range!)
+        let range = Range( NSRange(location: request.offset, length: receiveMessageDataCharacteristic!.value!.count - request.offset) )
+        request.value = receiveMessageDataCharacteristic!.value!.subdata(in: range!)
         // respond to central:
         peripheralManager?.respond(to: request, withResult: CBATTError.Code.success)
         LogUtils.LogTrace(type: .endFunc)
@@ -166,7 +174,7 @@ extension PeriperalManager: CBPeripheralManagerDelegate {
         // ensure characteristic is matched
         var writeMessageRequest: CBATTRequest?
         for request in requests {
-            if request.characteristic.uuid == messageDataCharacteristic!.uuid {
+            if request.characteristic.uuid == receiveMessageDataCharacteristic!.uuid {
                 writeMessageRequest = request
                 break
             }
@@ -184,7 +192,7 @@ extension PeriperalManager: CBPeripheralManagerDelegate {
 //            return
 //        }
         // write:
-        messageDataCharacteristic!.value = writeMessageRequest!.value
+        receiveMessageDataCharacteristic!.value = writeMessageRequest!.value
         // respond to central:
         peripheralManager?.respond(to: writeMessageRequest!, withResult: CBATTError.Code.success)
         let message = String(data: writeMessageRequest!.value!, encoding: String.Encoding.utf8)
@@ -196,23 +204,17 @@ extension PeriperalManager: CBPeripheralManagerDelegate {
         LogUtils.LogTrace(type: .endFunc)
         
     }
+
+    func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeTo characteristic: CBCharacteristic) {
+        LogUtils.LogTrace(type: .startFunc)
+        print("central: \(central) didSubscribe to charactersitic: \(characteristic)")
+        LogUtils.LogTrace(type: .endFunc)
+    }
     
-//        func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeTo characteristic: CBCharacteristic) {
-//            LogUtils.LogTrace(type: .startFunc)
-//            LogUtils.LogDebug(type: .info, message: "Central subscribed to \(characteristic)")
-//
-//            let updatedValue = messageContentCharacteristic.value!
-//            let didSentValue = peripheralManager?.updateValue(updatedValue, for: messageContentCharacteristic, onSubscribedCentrals: nil)
-//            LogUtils.LogTrace(type: .endFunc)
-//        }
-//
-//        func peripheralManagerIsReady(toUpdateSubscribers peripheral: CBPeripheralManager) {
-//            LogUtils.LogTrace(type: .startFunc)
-//            // re-sent characteristic value
-//            let updatedValue = messageContentCharacteristic.value!
-//            _ = peripheralManager?.updateValue(updatedValue, for: messageContentCharacteristic, onSubscribedCentrals: nil)
-//            LogUtils.LogTrace(type: .endFunc)
-//        }
+    func peripheralManagerIsReady(toUpdateSubscribers peripheral: CBPeripheralManager) {
+        // Summary: Invoked when a local peripheral device is again ready to send characteristic value updates.
+        self.peripheralManager.updateValue(self.updatedData!, for: self.sendMessageDataCharacteristic, onSubscribedCentrals: nil)
+    }
     
     
 }

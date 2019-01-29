@@ -731,15 +731,6 @@
                                     <action selector="stopAdvertiseButtonPressed:" target="XfG-lQ-9wD" id="OHD-zy-W84"/>
                                 </connections>
                             </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kUD-38-i68">
-                                <rect key="frame" x="63" y="116" width="59" height="17"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="message" id="CSh-yd-3WA">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RWY-lp-44a">
                                 <rect key="frame" x="264" y="111" width="96" height="22"/>
                                 <autoresizingMask key="autoresizingMask"/>
@@ -760,9 +751,32 @@
                                     <action selector="sendButtonPressed:" target="XfG-lQ-9wD" id="7ge-Mq-A90"/>
                                 </connections>
                             </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wUf-YN-KY8">
+                                <rect key="frame" x="281" y="47" width="155" height="17"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="success" id="8ez-M8-rkP">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kUD-38-i68">
+                                <rect key="frame" x="52" y="59" width="186" height="74"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="74" id="9To-dn-62j"/>
+                                    <constraint firstAttribute="width" constant="182" id="zSV-Hj-01I"/>
+                                </constraints>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="message" id="CSh-yd-3WA">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstItem="cVe-15-ebT" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="0k3-7f-bVC"/>
+                            <constraint firstItem="kUD-38-i68" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="54" id="EH0-A1-q07"/>
+                            <constraint firstItem="kUD-38-i68" firstAttribute="top" secondItem="cVe-15-ebT" secondAttribute="bottom" constant="96" id="KWH-jp-MuU"/>
                             <constraint firstAttribute="trailing" secondItem="cVe-15-ebT" secondAttribute="trailing" constant="126" id="ODm-97-Ps5"/>
                             <constraint firstItem="cVe-15-ebT" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="133" id="ik9-1W-6kz"/>
                         </constraints>
@@ -772,6 +786,7 @@
                         <outlet property="messageLabel" destination="kUD-38-i68" id="ble-pC-o72"/>
                         <outlet property="messageTextField" destination="RWY-lp-44a" id="v3c-bx-Xfh"/>
                         <outlet property="stopButtonOutlet" destination="1C1-ue-dJh" id="n3u-hl-Csp"/>
+                        <outlet property="successLabel" destination="wUf-YN-KY8" id="dCX-sS-s1O"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
