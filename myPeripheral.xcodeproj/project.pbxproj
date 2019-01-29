@@ -7,16 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05BB147621FF89EC0011E0F9 /* PeripheralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BB147521FF89EC0011E0F9 /* PeripheralManager.swift */; };
+		05BB147821FF8A170011E0F9 /* ServicesDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BB147721FF8A170011E0F9 /* ServicesDefine.swift */; };
+		05BB147B21FF8A660011E0F9 /* LogUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BB147A21FF8A660011E0F9 /* LogUtils.swift */; };
+		05BB147D21FF8AA90011E0F9 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BB147C21FF8AA90011E0F9 /* Notifications.swift */; };
+		05BB147F21FFF0E10011E0F9 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BB147E21FFF0E10011E0F9 /* BaseVC.swift */; };
 		05D369DC21FF6EF400D8AE26 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D369DB21FF6EF400D8AE26 /* AppDelegate.swift */; };
-		05D369DE21FF6EF400D8AE26 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D369DD21FF6EF400D8AE26 /* ViewController.swift */; };
+		05D369DE21FF6EF400D8AE26 /* PheripheralVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D369DD21FF6EF400D8AE26 /* PheripheralVC.swift */; };
 		05D369E021FF6EF700D8AE26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05D369DF21FF6EF700D8AE26 /* Assets.xcassets */; };
 		05D369E321FF6EF700D8AE26 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05D369E121FF6EF700D8AE26 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		05BB147521FF89EC0011E0F9 /* PeripheralManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralManager.swift; sourceTree = "<group>"; };
+		05BB147721FF8A170011E0F9 /* ServicesDefine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesDefine.swift; sourceTree = "<group>"; };
+		05BB147A21FF8A660011E0F9 /* LogUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogUtils.swift; sourceTree = "<group>"; };
+		05BB147C21FF8AA90011E0F9 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		05BB147E21FFF0E10011E0F9 /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		05D369D821FF6EF400D8AE26 /* myPeripheral.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myPeripheral.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		05D369DB21FF6EF400D8AE26 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		05D369DD21FF6EF400D8AE26 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		05D369DD21FF6EF400D8AE26 /* PheripheralVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PheripheralVC.swift; sourceTree = "<group>"; };
 		05D369DF21FF6EF700D8AE26 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		05D369E221FF6EF700D8AE26 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		05D369E421FF6EF700D8AE26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -34,6 +44,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		05BB147921FF8A340011E0F9 /* Peripheral */ = {
+			isa = PBXGroup;
+			children = (
+				05BB147721FF8A170011E0F9 /* ServicesDefine.swift */,
+				05D369DD21FF6EF400D8AE26 /* PheripheralVC.swift */,
+				05BB147521FF89EC0011E0F9 /* PeripheralManager.swift */,
+				05BB147E21FFF0E10011E0F9 /* BaseVC.swift */,
+			);
+			path = Peripheral;
+			sourceTree = "<group>";
+		};
 		05D369CF21FF6EF400D8AE26 = {
 			isa = PBXGroup;
 			children = (
@@ -54,7 +75,9 @@
 			isa = PBXGroup;
 			children = (
 				05D369DB21FF6EF400D8AE26 /* AppDelegate.swift */,
-				05D369DD21FF6EF400D8AE26 /* ViewController.swift */,
+				05BB147A21FF8A660011E0F9 /* LogUtils.swift */,
+				05BB147C21FF8AA90011E0F9 /* Notifications.swift */,
+				05BB147921FF8A340011E0F9 /* Peripheral */,
 				05D369DF21FF6EF700D8AE26 /* Assets.xcassets */,
 				05D369E121FF6EF700D8AE26 /* Main.storyboard */,
 				05D369E421FF6EF700D8AE26 /* Info.plist */,
@@ -95,6 +118,11 @@
 				TargetAttributes = {
 					05D369D721FF6EF400D8AE26 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -133,8 +161,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05D369DE21FF6EF400D8AE26 /* ViewController.swift in Sources */,
+				05BB147D21FF8AA90011E0F9 /* Notifications.swift in Sources */,
+				05BB147B21FF8A660011E0F9 /* LogUtils.swift in Sources */,
+				05BB147621FF89EC0011E0F9 /* PeripheralManager.swift in Sources */,
+				05D369DE21FF6EF400D8AE26 /* PheripheralVC.swift in Sources */,
 				05D369DC21FF6EF400D8AE26 /* AppDelegate.swift in Sources */,
+				05BB147F21FFF0E10011E0F9 /* BaseVC.swift in Sources */,
+				05BB147821FF8A170011E0F9 /* ServicesDefine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,7 +304,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = myPeripheral/myPeripheral.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 262A8C7KHX;
@@ -290,7 +322,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = myPeripheral/myPeripheral.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 262A8C7KHX;
